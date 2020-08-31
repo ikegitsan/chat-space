@@ -3,17 +3,22 @@
     .Side-bar__sbox
       -# masa
       = current_user.name
+      
       .Side-bar__sbox-two
         .Side-bar__edit-icon
-        = link_to "#", class: "Side-bar__sbox-two" do
+        
+        = link_to new_group_path do
           = icon('far', 'edit')
           .Side-bar__cog-icon
-          -# = link_to "#", class: "Side-bar__sbox-two" do
+          
           = link_to edit_user_path(current_user) do
             = icon('fa', 'cog')
       
   .Side-bar__group-list
-    .Side-bar__group-a
-      techcamp
-    .Side-bar__group-b
-      まだメッセージがありません
+    - current_user.groups.each do |group|
+      .Side-bar__group
+      = link_to '#' do
+        .Side-bar__group-a
+          = group.name
+        .Side-bar__group-b
+          メッセージはまだありません
