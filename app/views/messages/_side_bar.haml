@@ -1,7 +1,7 @@
 .Side-bar
   .Side-bar__user-name
     .Side-bar__sbox
-      -# masa
+      
       = current_user.name
       
       .Side-bar__sbox-two
@@ -17,8 +17,8 @@
   .Side-bar__group-list
     - current_user.groups.each do |group|
       .Side-bar__group
-      = link_to '#' do
+      = link_to group_messages_path(group) do
         .Side-bar__group-a
           = group.name
         .Side-bar__group-b
-          メッセージはまだありません
+          = group.show_last_message

@@ -1,25 +1,44 @@
 .Main-chat
+  
   .Main-chat__group-info
+  
     .Main-chat__group-c
-      test
+      = @group.name
+
       .Main-chat__group-d
-        Member : masa
-    = link_to "#", class: "Main-chat__group-e" do
+        - @group.users.each do |user|
+          = user.name
+        
+    = link_to edit_group_path(@group), class: "Main-chat__group-e" do
       Edit
-  .Main-chat__message-list
-    -# each do???
-    .Main-chat__group-f
-      masa
-      .Main-chat__group-f-two
-        datetime???
-    .Main-chat__group-g
-      おはよう！
+    -# = link_to edit_group_path do
+      
+  -# .Main-chat__message-list
+  -#   -# each do???
+  -#   .Main-chat__group-f
+  -#     masa
+  -#     .Main-chat__group-f-two
+  -#       datetime???
+  -#   .Main-chat__group-g
+  -#     おはよう！
+
+  .Message-field
+    = render @messages
+    
+  -# .Main-form
+  -#   %form.form
+  -#     .form-box
+  -#       %input.form-box__message{placeholder: "type a message" ,type: "text"}
+  -#       %label{class: "label"}
+  -#         = icon('fas', 'image')
+  -#         %input.file{type: "file"}
+  -#     %input.form-submit{type: "submit" ,value: "Send"}
 
   .Main-form
-    %form.form
-      .form-box
-        %input.form-box__message{placeholder: "type a message" ,type: "text"}
-        %label{class: "label"}
-          = icon('fas', 'image')
-          %input.file{type: "file"}
-      %input.form-submit{type: "submit" ,value: "Send"}
+    = form_with model: [@group, @message], html: {class: "Form-form"}, local: true do |f|
+      .Form-box
+        = f.text_field :content, class: 'text', placeholder: 'type a message'
+        = f.label :image, class: 'label' do
+          = icon('far', 'image', class: 'icon')
+          = f.file_field :image, class: 'file'
+      = f.submit 'Send', class: 'submit'
